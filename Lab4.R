@@ -38,12 +38,31 @@ fviz_dist(m.distancias, gradient=list(low='blue', mid='white', high='red'))
 fviz_nbclust(df, kmeans, method = 'wss')
 fviz_nbclust(df, kmeans, method = 'silhouette')
 
+#con esta función se pueden calcular:
+#the index to be calculated. This should be one of : "kl", "ch", "hartigan", "ccc", "scott",
+#"marriot", "trcovw", "tracew", "friedman", "rubin", "cindex", "db", "silhouette", "duda",
+#"pseudot2", "beale", "ratkowsky", "ball", "ptbiserial", "gap", "frey", "mcclain", "gamma",
+#"gplus", "tau", "dunn", "hubert", "sdindex", "dindex", "sdbw", "all" (all indices except GAP,
+#Gamma, Gplus and Tau), "alllong" (all indices with Gap, Gamma, Gplus and Tau included).
+resnumclust<-NbClust(df, distance = "euclidean", min.nc=2, max.nc=10, method = "kmeans", index = "alllong")
+fviz_nbclust(resnumclust)
+
 # Calculamos los cuatro clusters
 k4<-kmeans(df, centers = 4, nstart = 25)
 k4
 str(k4)
 
+k3<-kmeans(df, centers = 3, nstart = 25)
+
+k2<-kmeans(df, centers = 2, nstart = 25)
+
 #Plotear los clusters 
 fviz_cluster(k4, data = df)
 fviz_cluster(k4, data = df, ellipse.type = 'euclid', repel = TRUE, star.plot= TRUE)
 fviz_cluster(k4, data = df, ellipse.type = 'norm')
+
+# con 3 clusters
+fviz_cluster(k3, data = df)
+
+# con 2 clusters
+fviz_cluster(k2, data = df)
